@@ -36,10 +36,10 @@ class Project {
     this.db = db;
   }
 
-  static async initializeTables(db) {
+  async initializeTables() {
     try {
       // Drop the table if it exists to ensure a clean schema
-      await db.query('DROP TABLE IF EXISTS projects');
+      await this.db.query('DROP TABLE IF EXISTS projects');
 
       const createProjectsTable = `
         CREATE TABLE projects (
@@ -80,9 +80,9 @@ class Project {
         ON DUPLICATE KEY UPDATE title = title;
       `;
 
-      await db.query(createProjectsTable);
+      await this.db.query(createProjectsTable);
       console.log('Projects table created');
-      await db.query(insertInitialData);
+      await this.db.query(insertInitialData);
       console.log('Initial project data inserted');
     } catch (err) {
       console.error('Error initializing projects table:', err);
