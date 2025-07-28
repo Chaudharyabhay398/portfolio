@@ -8,7 +8,7 @@ dotenv.config();
 
 const About = require('./routes/about');
 const Header = require('./routes/header');
-const Project = require('./routes/project');
+const Project = require('./routes/Project');
 const Resume = require('./routes/resume');
 const Skills = require('./routes/skills');
 const Services = require('./routes/services');
