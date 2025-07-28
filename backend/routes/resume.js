@@ -5,10 +5,10 @@ class Resume {
     this.db = db;
   }
 
-  static async initializeTables(db) {
+  async initializeTables() {
     try {
       // Drop tables for clean schema (remove after first run)
-      await db.query('DROP TABLE IF EXISTS resume_summary, education, certifications, experience');
+      await this.db.query('DROP TABLE IF EXISTS resume_summary, education, certifications, experience');
 
       const createSummaryTable = `
         CREATE TABLE IF NOT EXISTS resume_summary (
@@ -46,17 +46,17 @@ class Resume {
         );
       `;
 
-   const createExperienceTable = `
-  CREATE TABLE IF NOT EXISTS experience (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    company VARCHAR(255) NOT NULL,
-    start_year VARCHAR(4) NOT NULL,
-    end_year VARCHAR(10), -- Updated from VARCHAR(4) to VARCHAR(10)
-    description TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  );
-`;
+      const createExperienceTable = `
+        CREATE TABLE IF NOT EXISTS experience (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          company VARCHAR(255) NOT NULL,
+          start_year VARCHAR(4) NOT NULL,
+          end_year VARCHAR(10), -- Updated from VARCHAR(4) to VARCHAR(10)
+          description TEXT NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `;
 
       const insertSummaryData = `
         INSERT INTO resume_summary (name, profession, bio, city, phone, email)
@@ -91,16 +91,16 @@ class Resume {
           ('Senior Developer', 'Innovate Solutions', '2022', 'Present', 'Led a team to build scalable web applications. Implemented CI/CD pipelines.');
       `;
 
-      await db.query(createSummaryTable);
-      await db.query(createEducationTable);
-      await db.query(createCertificationsTable);
-      await db.query(createExperienceTable);
+      await this.db.query(createSummaryTable);
+      await this.db.query(createEducationTable);
+      await this.db.query(createCertificationsTable);
+      await this.db.query(createExperienceTable);
       console.log('Resume tables created');
 
-      await db.query(insertSummaryData);
-      await db.query(insertEducationData);
-      await db.query(insertCertificationsData);
-      await db.query(insertExperienceData);
+      await this.db.query(insertSummaryData);
+      await this.db.query(insertEducationData);
+      await this.db.query(insertCertificationsData);
+      await this.db.query(insertExperienceData);
       console.log('Initial resume data inserted');
     } catch (err) {
       console.error('Error initializing resume tables:', err);
