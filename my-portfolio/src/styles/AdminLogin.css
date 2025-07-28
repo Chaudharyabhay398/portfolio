@@ -1,0 +1,442 @@
+/* Login section */
+.login-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #1a1a40 0%, #0a0a20 50%, #000000 100%);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Animated background particles */
+.login-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(66, 153, 225, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.2) 0%, transparent 50%);
+  animation: login-section-pulse 10s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes login-section-pulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+/* Login card */
+.login-section .login-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 28rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-section .login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(66, 153, 225, 0.3);
+}
+
+/* Neon glow effect on card */
+.login-section .login-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(66, 153, 225, 0.2), transparent);
+  transform: rotate(45deg);
+  animation: login-card-glow 5s infinite linear;
+  z-index: -1;
+}
+
+@keyframes login-card-glow {
+  0% { transform: translateX(-50%) rotate(45deg); }
+  100% { transform: translateX(50%) rotate(45deg); }
+}
+
+/* Heading */
+.login-section .login-card h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.login-section .login-card h2::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(to right, #4299e1, #ec4899);
+  border-radius: 2px;
+}
+
+/* Status messages */
+.login-section .text-green-200 {
+  color: #9ae6b4;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(154, 230, 180, 0.5);
+}
+
+.login-section .bg-green-500\/20 {
+  background-color: rgba(34, 197, 94, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.login-section .text-red-200 {
+  color: #fca5a5;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(252, 165, 165, 0.5);
+}
+
+.login-section .bg-red-500\/20 {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Form styles */
+.login-section form.space-y-6 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form group for floating labels */
+.login-section .form-group {
+  position: relative;
+}
+
+.login-section .form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d1d5db;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  pointer-events: none;
+}
+
+.login-section .form-group label:hover {
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Input fields */
+.login-section .form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(31, 41, 55, 0.5);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.login-section .form-group input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4299e1, 0 0 10px rgba(66, 153, 225, 0.5);
+  background: rgba(31, 41, 55, 0.7);
+}
+
+.login-section .form-group input::placeholder {
+  color: #9ca3af;
+  opacity: 0.8;
+}
+
+/* Floating label effect */
+.login-section .form-group input:focus + label,
+.login-section .form-group input:not(:placeholder-shown) + label {
+  top: -1.5rem;
+  font-size: 0.75rem;
+  color: #4299e1;
+  text-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+}
+
+/* Button styles */
+.login-section button {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(45deg, #4299e1, #ec4899);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+}
+
+.login-section button:hover {
+  background: linear-gradient(45deg, #3182ce, #d53f8c);
+  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.6);
+  transform: translateY(-2px);
+}
+
+.login-section button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(66, 153, 225, 0.3);
+}
+
+.login-section button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.login-section button:hover::before {
+  left: 100%;
+}
+
+/* Background particle animation */
+@keyframes login-particle-float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+.login-section .particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.login-section .particle:nth-child(1) {
+  width: 20px;
+  height: 20px;
+  top: 10%;
+  left: 15%;
+  animation: login-particle-float 6s infinite ease-in-out;
+}
+
+.login-section .particle:nth-child(2) {
+  width: 15px;
+  height: 15px;
+  top: 70%;
+  left: 80%;
+  animation: login-particle-float 8s infinite ease-in-out 1s;
+}
+
+.login-section .particle:nth-child(3) {
+  width: 25px;
+  height: 25px;
+  top: 40%;
+  left: 30%;
+  animation: login-particle-float 7s infinite ease-in-out 2s;
+}
+
+.login-section .particle:nth-child(4) {
+  width: 18px;
+  height: 18px;
+  top: 20%;
+  left: 70%;
+  animation: login-particle-float 9s infinite ease-in-out 3s;
+}
+
+.login-section .particle:nth-child(5) {
+  width: 22px;
+  height: 22px;
+  top: 50%;
+  left: 10%;
+  animation: login-particle-float 7s infinite ease-in-out 4s;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .login-section {
+    padding: 2rem 0.5rem;
+  }
+
+  .login-section .login-card {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .login-section .login-card h2 {
+    font-size: 1.75rem;
+  }
+
+  .login-section .form-group input {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .login-section button {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .login-section .login-card {
+    max-width: 24rem;
+  }
+
+  .login-section .login-card h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .login-section .login-card {
+    padding: 3rem;
+    max-width: 32rem;
+  }
+
+  .login-section .login-card h2 {
+    font-size: 2.5rem;
+  }
+
+  .login-section .form-group input {
+    padding: 1rem;
+    font-size: 1.125rem;
+  }
+
+  .login-section button {
+    padding: 1rem;
+    font-size: 1.125rem;
+  }
+}
+
+/* Accessibility styles */
+.login-section .form-group input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgba(31, 41, 55, 0.5) inset;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.login-section button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.login-section .form-group input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4299e1, 0 0 10px rgba(66, 153, 225, 0.5);
+}
+
+/* Subtle text glow for labels */
+.login-section .form-group label {
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* Hover effect for status messages */
+.login-section .text-green-200:hover,
+.login-section .text-red-200:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Animation for form appearance */
+.login-section form {
+  animation: login-form-fadeIn 0.8s ease-out;
+}
+
+@keyframes login-form-fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Extra decorative elements */
+.login-section .login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #4299e1, #ec4899) 1;
+  z-index: -1;
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+  .login-section .login-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ffffff;
+  }
+
+  .login-section .form-group input {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .login-section button {
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .login-section .login-card,
+  .login-section button,
+  .login-section .form-group input,
+  .login-section .particle {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Final touches for button glow */
+.login-section button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+}
+
+.login-section button:hover::after {
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+}

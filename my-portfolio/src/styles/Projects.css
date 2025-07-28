@@ -1,0 +1,148 @@
+/* Card Container (replacing projects-section) */
+.card-container {
+  background: linear-gradient(135deg, #1e2a44 0%, #2c3e50 100%);
+  min-height: 100vh;
+  margin-left: 250px; /* for sidebar space */
+  width: calc(100% - 250px);
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    margin-left: 0;
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+}
+
+/* Projects Card (main card) */
+.projects-card {
+  max-width: 1100px;
+  background: rgba(30, 42, 68, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  margin: auto;
+  display: block; /* Full card as a container */
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .projects-card {
+    padding: 30px;
+  }
+}
+
+/* Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+/* Project Card */
+.project-card {
+  background: rgba(45, 55, 71, 0.9); /* Slightly lighter dark shade */
+  border-radius: 10px;
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.project-card:nth-child(odd)::before {
+  background: linear-gradient(to bottom, #ff6b6b, #ff8e53); /* Red-orange for odd cards */
+}
+
+.project-card:nth-child(even)::before {
+  background: linear-gradient(to bottom, #60a5fa, #3b82f6); /* Blue for even cards */
+}
+
+/* Project Card Content */
+.project-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e0e6ff;
+  margin-bottom: 0.5rem;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  color: #b0b8d6;
+  margin-bottom: 0.5rem;
+}
+
+.project-card .project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.project-card .project-links a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.project-card .project-links a:hover {
+  text-decoration: underline;
+}
+
+/* Headings */
+.card-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  color: #e0e6ff;
+}
+
+.card-heading::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, #ff6b6b, #60a5fa); /* Combined gradient */
+  border-radius: 2px;
+  margin: 8px 0 0 0;
+}
+
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+
+  .card-heading {
+    font-size: 1.5rem;
+  }
+
+  .project-card {
+    padding: 1rem;
+  }
+}

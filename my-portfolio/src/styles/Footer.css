@@ -1,0 +1,465 @@
+/* Footer CSS - Enhanced Styling for Footer Component */
+/* Matches skill.css and header.css responsiveness with vibrant glassmorphism, neon glow, and dark theme */
+/* Desktop view aligned with sidebar, no overlap with header */
+/* Author: Grok 3, xAI */
+/* Date: July 26, 2025 */
+
+/* Import Poppins font for consistency */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+
+/* Root Variables for Consistency */
+:root {
+  --primary-color: #60a5fa;
+  --secondary-color: #a855f7;
+  --danger-color: #ef4444;
+  --text-light: #e0e6ff;
+  --text-muted: #b0b8d6;
+  --bg-dark: #1e2a44;
+  --bg-glass: rgba(30, 42, 68, 0.95);
+  --glow-blue: 0 0 8px rgba(96, 165, 250, 0.8);
+  --glow-purple: 0 0 8px rgba(168, 85, 247, 0.8);
+  --transition-fast: 0.3s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* Footer Container */
+.footer {
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #2c3e50 100%);
+  backdrop-filter: blur(12px);
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+  padding: 80px 30px;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow-blue);
+  animation: slideUp 0.8s var(--transition-slow) forwards;
+  color: var(--text-light);
+  box-sizing: border-box;
+  z-index: 10;
+  width: 100%;
+}
+
+/* Light theme background */
+.footer[data-theme="light"] {
+  background: linear-gradient(135deg, #f0f4f8 0%, #d1d9e6 100%);
+  color: #2a2a2a;
+}
+
+/* Pseudo-element for Neon Border Effect */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  animation: glowBorder 2s infinite alternate;
+}
+
+/* Footer Content Container */
+.footer .container {
+  max-width: 1100px;
+  padding: 0 30px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Typography */
+.footer p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-light);
+  font-weight: 400;
+  margin-bottom: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-fast);
+}
+
+/* Light theme text */
+.footer p[data-theme="light"] {
+  color: #2a2a2a;
+}
+
+/* Primary Text (Designer Name) */
+.footer .text-primary {
+  color: var(--primary-color) !important;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Hover Effect for Designer Name */
+.footer .text-primary:hover {
+  color: var(--secondary-color) !important;
+  transform: translateY(-2px);
+  text-shadow: var(--glow-purple);
+}
+
+/* Underline Animation for Designer Name */
+.footer .text-primary::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--secondary-color);
+  transition: width var(--transition-fast);
+}
+
+.footer .text-primary:hover::after {
+  width: 100%;
+}
+
+/* Error Text */
+.footer .text-danger {
+  color: var(--danger-color) !important;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Muted Text for Error/Fallback */
+.footer .text-muted {
+  color: var(--text-muted) !important;
+  font-weight: 300;
+}
+
+/* Visitor Counter Container */
+.footer .visitor-counter {
+  background: var(--bg-glass);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), var(--glow-blue);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+/* Light theme visitor counter */
+.footer .visitor-counter[data-theme="light"] {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect for Visitor Counter */
+.footer .visitor-counter:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), var(--glow-purple);
+}
+
+/* Font Awesome Icon */
+.footer .fas.fa-users {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer .visitor-counter:hover .fas.fa-users {
+  color: var(--secondary-color);
+  transform: rotate(10deg);
+}
+
+/* Bold Text for Visitor Count */
+.footer .font-weight-bold {
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+}
+
+/* Light theme bold text */
+.footer .font-weight-bold[data-theme="light"] {
+  color: #2a2a2a;
+}
+
+/* Loading Animation */
+.footer .text-md:empty::after {
+  content: 'Loading visits...';
+  color: var(--text-muted);
+  font-style: italic;
+  animation: pulse 1.5s infinite;
+}
+
+/* Keyframe Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowBorder {
+  0% {
+    box-shadow: 0 0 10px var(--primary-color);
+  }
+  100% {
+    box-shadow: 0 0 10px var(--secondary-color);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), var(--glow-blue);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), var(--glow-purple);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), var(--glow-blue);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design (aligned with skill.css and header.css) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 40px 10px;
+    border-top-width: 1px;
+    margin-left: 0;
+    width: 100vw;
+    min-width: 100%;
+    padding-top: 70px; /* Accounts for mobile navbar height (~60px) */
+  }
+  .footer .container {
+    padding: 0 10px;
+    max-width: 100%;
+    margin-left: 0;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .footer p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .footer .visitor-counter {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+  .footer .fas.fa-users {
+    font-size: 1rem;
+  }
+  .footer .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .footer .text-primary {
+    font-size: 0.95rem;
+  }
+  .footer .text-primary::after {
+    bottom: -3px;
+    height: 1.5px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .footer {
+    padding: 60px 15px;
+    margin-left: 0;
+    width: 100vw;
+    min-width: 100%;
+    padding-top: 70px; /* Accounts for mobile navbar height */
+  }
+  .footer .container {
+    padding: 0 15px;
+    margin-left: 0;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .footer p {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .footer .visitor-counter {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  .footer .fas.fa-users {
+    font-size: 1.1rem;
+  }
+  .footer .d-flex {
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .footer .text-primary {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 80px 30px;
+  }
+  .footer .container {
+    max-width: 1100px;
+    padding: 0 30px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+  .footer p {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  .footer .visitor-counter {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  .footer .fas.fa-users {
+    font-size: 1.2rem;
+  }
+  .footer .text-primary {
+    font-size: 1.15rem;
+  }
+  .footer .d-flex {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+  .footer .container {
+    max-width: 1200px;
+  }
+  .footer p {
+    font-size: 1.2rem;
+  }
+  .footer .visitor-counter {
+    padding: 0.85rem 1.75rem;
+    font-size: 1.1rem;
+  }
+  .footer .fas.fa-users {
+    font-size: 1.3rem;
+  }
+  .footer .text-primary {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .footer {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+  .footer .container {
+    max-width: 1400px;
+  }
+  .footer p {
+    font-size: 1.3rem;
+  }
+  .footer .visitor-counter {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+  .footer .fas.fa-users {
+    font-size: 1.4rem;
+  }
+  .footer .text-primary {
+    font-size: 1.35rem;
+  }
+}
+
+/* Accessibility: Focus States */
+.footer:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+/* Accessibility: High Contrast Mode */
+@media (prefers-contrast: high) {
+  .footer {
+    background: #1e2a44;
+    border: 2px solid #ff6b6b;
+  }
+  .footer p, .footer .text-primary, .footer .visitor-counter {
+    color: #fff !important;
+  }
+  .footer .text-danger {
+    color: #ff5555 !important;
+  }
+  .footer .fas.fa-users {
+    color: #55aaff !important;
+  }
+  .footer .visitor-counter {
+    background: #2c3e50;
+    border: 1px solid #ff6b6b;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .footer, .footer .visitor-counter, .footer .text-primary, .footer::before {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .footer {
+    background: none;
+    border-top: 1px solid #000;
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
+  }
+  .footer p, .footer .visitor-counter {
+    color: #000 !important;
+    font-size: 12pt;
+  }
+  .footer .text-primary, .footer .text-danger, .footer .fas.fa-users {
+    color: #000 !important;
+  }
+  .footer .visitor-counter {
+    box-shadow: none;
+    background: none;
+  }
+  .footer::before {
+    display: none;
+  }
+}
+
+/* Dark Mode Enhancement */
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #2c3e50 100%);
+  }
+  .footer .visitor-counter {
+    background: var(--bg-glass);
+  }
+}
