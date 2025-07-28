@@ -27,9 +27,22 @@ app.use(cors({
   credentials: true,
 }));
 
+// Logging function with timestamp and log level
+const log = (level, message) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] [${level}] ${message}`);
+};
+
+// Log server start
+log('INFO', 'Starting server initialization');
+
+// Log environment variables (masking sensitive data)
+log('INFO', `Environment variables: MYSQL_HOST=${process.env.MYSQL_HOST}, MYSQL_USER=${process.env.MYSQL_USER}, MYSQL_DATABASE=${process.env.MYSQL_DATABASE || 'undefined'}, PORT=${process.env.PORT || 'undefined'}`);
+
 async function initializeServer() {
   try {
     // Initial connection to create database if it doesn't exist
+    log('INFO', 'Attempting initial MySQL connection');
     const initialDb = await mysql.createPool({
       host: process.env.MYSQL_HOST || 'localhost',
       user: process.env.MYSQL_USER || 'root',
@@ -37,11 +50,16 @@ async function initializeServer() {
       multipleStatements: true,
     });
 
-    console.log('Connected to MySQL for initial setup');
+    log('INFO', 'Connected to MySQL for initial setup');
     await initialDb.query('CREATE DATABASE IF NOT EXISTS user_profile_db');
-    console.log('Database user_profile_db created or already exists');
+    log('INFO', 'Database user_profile_db created or already exists');
+
+    // Close initial connection
+    await initialDb.end();
+    log('INFO', 'Initial MySQL connection closed');
 
     // Main database connection
+    log('INFO', 'Connecting to database user_profile_db');
     const db = await mysql.createPool({
       host: process.env.MYSQL_HOST || 'localhost',
       user: process.env.MYSQL_USER || 'root',
@@ -53,9 +71,10 @@ async function initializeServer() {
       queueLimit: 0,
     });
 
-    console.log('Connected to MySQL Server!');
+    log('INFO', 'Connected to MySQL Server with database user_profile_db');
 
     // Initialize classes
+    log('INFO', 'Initializing route modules');
     const about = new About(db);
     const header = new Header(db);
     const project = new Project(db);
@@ -66,8 +85,10 @@ async function initializeServer() {
     const contact = new Contact(db);
     const visitorCount = new VisitorCount(db);
     const admin = new Admin(db);
+    log('INFO', 'All route modules initialized');
 
     // Initialize tables with error handling
+    log('INFO', 'Initializing tables for all modules');
     const tableInitializationErrors = [];
     const modules = [
       { name: 'About', instance: about },
@@ -83,38 +104,52 @@ async function initializeServer() {
     ];
 
     for (const { name, instance } of modules) {
+      log('INFO', `Initializing ${name} tables`);
       try {
         await instance.initializeTables();
-        console.log(`${name} tables initialized`);
+        log('INFO', `${name} tables initialized successfully`);
       } catch (err) {
-        console.error(`Error initializing ${name} tables:`, err.message);
+        log('ERROR', `Error initializing ${name} tables: ${err.message}`);
         tableInitializationErrors.push(`${name}: ${err.message}`);
       }
     }
 
     if (tableInitializationErrors.length > 0) {
-      console.warn('Some table initializations failed:', tableInitializationErrors.join(' | '));
+      log('WARN', `Some table initializations failed: ${tableInitializationErrors.join(' | ')}`);
     } else {
-      console.log('All tables initialized successfully');
+      log('INFO', 'All tables initialized successfully');
     }
 
     // Setup routes
-    modules.forEach(({ instance }) => instance.setupRoutes(app));
+    log('INFO', 'Setting up routes');
+    try {
+      modules.forEach(({ name, instance }) => {
+        log('INFO', `Setting up routes for ${name}`);
+        instance.setupRoutes(app);
+        log('INFO', `Routes for ${name} set up successfully`);
+      });
+    } catch (err) {
+      log('ERROR', `Route setup error: ${err.message}`);
+      throw err; // Re-throw to halt server startup if route setup fails
+    }
 
     // Start server with port conflict handling
     const PORT = process.env.PORT || 3000;
     let currentPort = PORT;
 
+    log('INFO', `Attempting to start server on port ${currentPort}`);
     const startServer = (port) => {
-      const server = app.listen(port, () => console.log(`Server running on port ${port}`));
+      const server = app.listen(port, () => {
+        log('INFO', `Server running on port ${port}`);
+      });
       server.on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
-          console.warn(`Port ${port} is in use. Trying port ${port + 1}...`);
+          log('WARN', `Port ${port} is in use. Trying port ${port + 1}...`);
           currentPort = port + 1;
           server.close();
           startServer(currentPort);
         } else {
-          console.error('Server error:', err.message);
+          log('ERROR', `Server error: ${err.message}`);
           process.exit(1);
         }
       });
@@ -124,12 +159,13 @@ async function initializeServer() {
 
     // Graceful shutdown
     process.on('SIGTERM', async () => {
-      console.log('Shutting down server...');
+      log('INFO', 'Shutting down server...');
       await db.end();
+      log('INFO', 'Database connection closed');
       process.exit(0);
     });
   } catch (err) {
-    console.error('Server initialization error:', err.message);
+    log('ERROR', `Server initialization error: ${err.message}`);
     process.exit(1);
   }
 }
