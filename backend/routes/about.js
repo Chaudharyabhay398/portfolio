@@ -37,7 +37,7 @@ class About {
     this.db = db;
   }
 
-  static async initializeTables(db) {
+  async initializeTables() {
     try {
       const createProfileTable = `
         CREATE TABLE IF NOT EXISTS user_profile (
@@ -93,11 +93,11 @@ class About {
         ON DUPLICATE KEY UPDATE url = VALUES(url);
       `;
 
-      await db.query('DELETE FROM social_links WHERE user_id = 1');
-      await db.query(createProfileTable);
-      await db.query(createSocialLinksTable);
-      await db.query(insertInitialData);
-      await db.query(insertSocialLinks);
+      await this.db.query('DELETE FROM social_links WHERE user_id = 1');
+      await this.db.query(createProfileTable);
+      await this.db.query(createSocialLinksTable);
+      await this.db.query(insertInitialData);
+      await this.db.query(insertSocialLinks);
       console.log('About tables and initial data created/verified');
     } catch (err) {
       console.error('Error initializing tables:', err);
