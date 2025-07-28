@@ -5,7 +5,7 @@ class Header {
     this.db = db;
   }
 
-  static async initializeTables(db) {
+  async initializeTables() {
     console.log('Header tables creation skipped; handled by About');
   }
 
